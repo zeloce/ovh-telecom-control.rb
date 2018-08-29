@@ -10,6 +10,12 @@
 - [Ruby OVH API]
 - [Celluloid]
 
+## Installation
+
+```
+make install
+```
+
 [OVH]: https://ovh.com
 [API]: https://api.ovh.com
 [Telephony]: https://api.ovh.com/console/#/telephony
