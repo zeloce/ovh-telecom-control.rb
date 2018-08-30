@@ -16,6 +16,7 @@
 - `to_h`: Returns [Hash]
   - `identifier`
   - `agents`: [Array] of [Agent] to [Hash]
+- `to_agent(line)`: Returns [Agent] from [Line]
 
 [Source]: /lib/ovh-telecom-control/user.rb
 [Client]: ovh-telecom-control/client.md

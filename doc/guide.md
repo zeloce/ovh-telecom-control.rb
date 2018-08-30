@@ -115,11 +115,7 @@ User['All Might'].status = 0
 To turn-off on a specific [Line]:
 
 ``` ruby
-agent = User['All Might'].agents.find do |agent|
-  agent.line == line
-end
-
-agent.status = 0
+User['All Might'].to_agent(line).status = 0
 ```
 
 __Erase [Father] from the existence.__
@@ -132,11 +128,7 @@ User['Father'].delete
 To delete on a specific [Line]:
 
 ``` ruby
-agent = User['Father'].agents.find do |agent|
-  agent.line == line
-end
-
-agent.delete
+User['Father'].to_agent(line).delete
 ```
 
 __Top ranking.__

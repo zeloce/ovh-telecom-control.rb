@@ -71,4 +71,10 @@ class OVHTelecomControl::User
     }
   end
 
+  def to_agent(line)
+    agents.find do |agent|
+      agent.line == line
+    end
+  end
+
 end
