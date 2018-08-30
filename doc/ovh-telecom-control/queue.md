@@ -7,7 +7,7 @@
 - `client`: [Client]
 - `line`: [Line]
 - `identifier`
-- `name` (____)
+- `name` (Editable)
 - `agents`: [Array] of [Agent]
 - `users`: [Array] of [User]
 - `path`: [Path]

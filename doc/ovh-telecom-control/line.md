@@ -6,7 +6,7 @@
 - `client`: [Client]
 - `type`
 - `identifier`
-- `name` (____)
+- `name` (Editable)
 - `agents`: [Array] of [Agent]
 - `queues`: [Array] of [Queue]
 - `path`: [Path]

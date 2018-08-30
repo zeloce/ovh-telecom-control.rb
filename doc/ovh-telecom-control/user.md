@@ -5,8 +5,8 @@
 - `new(client:, identifier:)`
 - `delete`: Removes from all [Line]
 - `client`: [Client]
-- `identifier` (____): Phone number
-- `status` (____): Returns [Integer]
+- `identifier` (Editable): Phone number
+- `status` (Editable): Returns [Integer]
   - `1` → `[ON]` (Active at least on _one_ [Line])
   - `0` → `[OFF]`
   - `-1` → `[Toggle]`

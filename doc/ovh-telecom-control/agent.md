@@ -7,8 +7,8 @@
 - `client`: [Client]
 - `line`: [Line]
 - `identifier`
-- `number` (____)
-- `status` (____): Returns [Integer]
+- `number` (Editable)
+- `status` (Editable): Returns [Integer]
   - `1` → `[ON]`
   - `0` → `[OFF]`
   - `-1` → `[Toggle]`
