@@ -1,4 +1,4 @@
-###### > [Source](/lib/ovh-telecom-control/user.rb)
+###### > [Source]
 
 ## Methods
 
@@ -17,6 +17,7 @@
   - `identifier`
   - `agents`: [Array] of [Agent] to [Hash]
 
+[Source]: /lib/ovh-telecom-control/user.rb
 [Client]: ovh-telecom-control/client.md
 [Line]: ovh-telecom-control/line.md
 [Agent]: ovh-telecom-control/agent.md

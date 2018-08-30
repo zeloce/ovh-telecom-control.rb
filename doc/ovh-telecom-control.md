@@ -1,4 +1,4 @@
-###### > [Source](/lib/ovh-telecom-control.rb)
+###### > [Source]
 
 > [OVH] [Telecom][Telephony] [API] for Humans.
 
@@ -28,6 +28,7 @@ Here’s a bird’s-eye view of [OVHTelecomControl] classes.
 require 'ovh-telecom-control'
 ```
 
+[Source]: /lib/ovh-telecom-control.rb
 [OVH]: https://ovh.com
 [API]: https://api.ovh.com
 [Telephony]: https://api.ovh.com/console/#/telephony

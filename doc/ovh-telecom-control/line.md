@@ -1,4 +1,4 @@
-###### > [Source](/lib/ovh-telecom-control/line.rb)
+###### > [Source]
 
 ## Methods
 
@@ -23,6 +23,7 @@
   - `agents`: [Array] of [Agent] to [Hash]
   - `queues`: [Array] of [Queue] to [Hash]
 
+[Source]: /lib/ovh-telecom-control/line.rb
 [Client]: ovh-telecom-control/client.md
 [Agent]: ovh-telecom-control/agent.md
 [Queue]: ovh-telecom-control/queue.md

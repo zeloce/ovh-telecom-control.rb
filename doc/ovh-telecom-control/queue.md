@@ -1,4 +1,4 @@
-###### > [Source](/lib/ovh-telecom-control/queue.rb)
+###### > [Source]
 
 ## Methods
 
@@ -25,6 +25,7 @@
   - `identifier`
   - `name`
 
+[Source]: /lib/ovh-telecom-control/queue.rb
 [Client]: ovh-telecom-control/client.md
 [Line]: ovh-telecom-control/line.md
 [Agent]: ovh-telecom-control/agent.md

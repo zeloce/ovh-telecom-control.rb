@@ -1,4 +1,4 @@
-###### > [Source](/lib/ovh-telecom-control/client.rb)
+###### > [Source]
 
 ## Methods
 
@@ -31,6 +31,7 @@
   - `lines`: [Array] of [Line] to [Hash]
   - `users`: [Array] of [User] to [Hash]
 
+[Source]: /lib/ovh-telecom-control/client.rb
 [Line]: ovh-telecom-control/line.md
 [User]: ovh-telecom-control/user.md
 [String]: https://ruby-doc.org/core/String.html

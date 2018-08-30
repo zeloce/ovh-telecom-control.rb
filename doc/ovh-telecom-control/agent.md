@@ -1,4 +1,4 @@
-###### > [Source](/lib/ovh-telecom-control/agent.rb)
+###### > [Source]
 
 ## Methods
 
@@ -24,6 +24,7 @@
   - `status`
 - `to_user`: Returns [User]
 
+[Source]: /lib/ovh-telecom-control/agent.rb
 [Client]: ovh-telecom-control/client.md
 [Line]: ovh-telecom-control/line.md
 [Queue]: ovh-telecom-control/queue.md

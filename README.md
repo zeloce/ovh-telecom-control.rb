@@ -1,6 +1,6 @@
 # OVH Telecom Control
 
-###### [Guide] | [Documentation] | [Contributing](CONTRIBUTING)
+###### [Guide] | [Documentation] | [Contributing]
 
 > [OVH] [Telecom][Telephony] [API] for Humans.
 
@@ -18,6 +18,7 @@ make install
 
 [Guide]: doc/guide.md
 [Documentation]: doc/ovh-telecom-control.md
+[Contributing]: CONTRIBUTING
 [OVH]: https://ovh.com
 [API]: https://api.ovh.com
 [Telephony]: https://api.ovh.com/console/#/telephony
