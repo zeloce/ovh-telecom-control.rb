@@ -11,4 +11,4 @@ uninstall:
 	gem uninstall $(gem) --version $(version)
 
 clean:
-	rm --force $(gem)-$(version).gem
+	rm -f $(gem)-$(version).gem
