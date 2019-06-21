@@ -56,7 +56,10 @@ class OVHTelecomControl::Client < OVHApi::Client
   def request(path, method, parameters, &block)
     body = parameters&.to_json
     response = super(path, method, body)
-    message = JSON.parse(response.body)
+    message = if response.body == "null"
+                "null"
+              else
+                JSON.parse(response.body) end
     code = response.code.to_i
     error = code != 200 && {
       path: path,
