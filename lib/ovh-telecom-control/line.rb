@@ -1,13 +1,9 @@
+# frozen_string_literal: true
+
 require 'celluloid/current'
 
 class OVHTelecomControl::Line
-
-  Types = %w[
-    easyHunting
-    easyPabx
-    miniPabx
-    ovhPabx
-  ]
+  Types = ['easyHunting', 'easyPabx', 'miniPabx', 'ovhPabx'].freeze
 
   # Attributes ─────────────────────────────────────────────────────────────────
 
@@ -36,12 +32,10 @@ class OVHTelecomControl::Line
     # Because {identifier} corresponds to a line – which is unique –
     # and {type} an implementation detail.
     matching_line = Types.find do |type|
-      path = client.path + resource % {
-        type: type,
-        identifier: identifier
-      }
+      path = client.path + format(resource, type: type, identifier: identifier)
       client.get(path) do |message, error|
         next if error
+
         @type = type
         @name = message['description']
       end
@@ -49,13 +43,14 @@ class OVHTelecomControl::Line
     unless matching_line
       raise "No matching line for identifier: #{identifier}"
     end
+
     @agents = get_agents
     @queues = get_queues
   end
 
   # Properties ─────────────────────────────────────────────────────────────────
 
-  def name= value
+  def name=(value)
     client.put(path, description: value)
     @name = value
   end
@@ -76,7 +71,7 @@ class OVHTelecomControl::Line
 
   # Agent ──────────────────────────────────────────────────────────────────────
 
-  def create_agent number:
+  def create_agent(number:)
     # Example: https://api.ovh.com/console/#/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent#POST
     path = self.path + OVHTelecomControl::Agent.resource
     parameters = {
@@ -84,7 +79,7 @@ class OVHTelecomControl::Line
       simultaneousLines: 1,
       status: :loggedOut,
       timeout: 20,
-      wrapUpTime: 20
+      wrapUpTime: 20,
     }
     response = client.post(path, parameters)
     agent = OVHTelecomControl::Agent.new(line: self, identifier: response['agentId'])
@@ -108,12 +103,12 @@ class OVHTelecomControl::Line
 
   # Queue ──────────────────────────────────────────────────────────────────────
 
-  def create_queue name:
+  def create_queue(name:)
     # Example: https://api.ovh.com/console/#/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue#POST
     path = self.path + OVHTelecomControl::Queue.resource
     parameters = {
       description: name,
-      strategy: :sequentiallyByAgentOrder
+      strategy: :sequentiallyByAgentOrder,
     }
     response = client.post(path, parameters)
     queue = OVHTelecomControl::Queue.new(line: self, identifier: response['queueId'])
@@ -137,9 +132,7 @@ class OVHTelecomControl::Line
 
   # Exporting ──────────────────────────────────────────────────────────────────
 
-  def to_s
-    identifier.to_s
-  end
+  delegate :to_s, to: :identifier
 
   def to_h
     {
@@ -159,11 +152,10 @@ class OVHTelecomControl::Line
       path = api['path']
       match = /^.telephony.{billingAccount}.(.+).{serviceName}.hunting$/.match(path)
       list + if match
-        [$1]
-      else
-        []
+               [Regexp.last_match(1)]
+             else
+               []
       end
     end
   end
-
 end

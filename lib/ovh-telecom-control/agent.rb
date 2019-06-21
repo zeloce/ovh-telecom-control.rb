@@ -1,5 +1,6 @@
-class OVHTelecomControl::Agent
+# frozen_string_literal: true
 
+class OVHTelecomControl::Agent
   # Attributes ─────────────────────────────────────────────────────────────────
 
   attr_reader :client
@@ -29,7 +30,7 @@ class OVHTelecomControl::Agent
 
   # Properties ─────────────────────────────────────────────────────────────────
 
-  def number= value
+  def number=(value)
     client.put(path, number: value)
     @number = value
   end
@@ -39,21 +40,21 @@ class OVHTelecomControl::Agent
   # [ON] → 1, available
   # [OFF] → 0, loggedOut
   # [Toggle] → -1
-  def status= value
+  def status=(value)
     on, off = [1, 'available'], [0, 'loggedOut']
     internal, external = case value
-    when 1
-      on
-    when 0
-      off
-    when -1
-      if status.zero?
-        on
-      else
-        off
-      end
-    else
-      raise "Invalid value: #{value}"
+                         when 1
+                           on
+                         when 0
+                           off
+                         when -1
+                           if status.zero?
+                             on
+                           else
+                             off
+                           end
+                         else
+                           raise "Invalid value: #{value}"
     end
     client.put(path, status: external)
     @status = internal
@@ -86,24 +87,21 @@ class OVHTelecomControl::Agent
     end
   end
 
-  alias :queues :get_queues
+  alias queues get_queues
 
   # Exporting ──────────────────────────────────────────────────────────────────
 
-  def to_s
-    identifier.to_s
-  end
+  delegate :to_s, to: :identifier
 
   def to_h
     {
       identifier: identifier,
       number: number,
-      status: status
+      status: status,
     }
   end
 
   def to_user
     OVHTelecomControl::User.new(client: client, identifier: number)
   end
-
 end

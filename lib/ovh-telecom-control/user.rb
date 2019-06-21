@@ -1,5 +1,6 @@
-class OVHTelecomControl::User
+# frozen_string_literal: true
 
+class OVHTelecomControl::User
   # Attributes ─────────────────────────────────────────────────────────────────
 
   attr_reader :client
@@ -24,7 +25,7 @@ class OVHTelecomControl::User
 
   # Properties ─────────────────────────────────────────────────────────────────
 
-  def identifier= value
+  def identifier=(value)
     agents.each do |agent|
       agent.number = value
     end
@@ -40,7 +41,7 @@ class OVHTelecomControl::User
     end
   end
 
-  def status= value
+  def status=(value)
     agents.each do |agent|
       agent.status = value
     end
@@ -60,14 +61,12 @@ class OVHTelecomControl::User
 
   # Exporting ──────────────────────────────────────────────────────────────────
 
-  def to_s
-    identifier.to_s
-  end
+  delegate :to_s, to: :identifier
 
   def to_h
     {
       identifier: identifier,
-      agents: agents.map(&:to_h)
+      agents: agents.map(&:to_h),
     }
   end
 
@@ -76,5 +75,4 @@ class OVHTelecomControl::User
       agent.line == line
     end
   end
-
 end

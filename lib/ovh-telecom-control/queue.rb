@@ -1,5 +1,6 @@
-class OVHTelecomControl::Queue
+# frozen_string_literal: true
 
+class OVHTelecomControl::Queue
   # Attributes ─────────────────────────────────────────────────────────────────
 
   attr_reader :client
@@ -27,7 +28,7 @@ class OVHTelecomControl::Queue
 
   # Properties ─────────────────────────────────────────────────────────────────
 
-  def name= value
+  def name=(value)
     client.put(path, description: value)
     @name = value
   end
@@ -84,7 +85,7 @@ class OVHTelecomControl::Queue
       # agentId
       # queueId
       # position (Start: 1)
-      path = path + String(identifier)
+      path += String(identifier)
       response = client.get(path)
       index = response['position'] - 1
       agents[index] = agent
@@ -92,7 +93,7 @@ class OVHTelecomControl::Queue
     agents
   end
 
-  alias :agents :get_agents
+  alias agents get_agents
 
   # User ───────────────────────────────────────────────────────────────────────
 
@@ -115,19 +116,16 @@ class OVHTelecomControl::Queue
     agents.map(&:to_user)
   end
 
-  alias :users :get_users
+  alias users get_users
 
   # Exporting ──────────────────────────────────────────────────────────────────
 
-  def to_s
-    identifier.to_s
-  end
+  delegate :to_s, to: :identifier
 
   def to_h
     {
       identifier: identifier,
-      name: name
+      name: name,
     }
   end
-
 end

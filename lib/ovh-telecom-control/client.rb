@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 require 'json'
 require 'pathname'
 require 'ovh-telecom-control/user'
 
 class OVHTelecomControl::Client < OVHApi::Client
-
   # Attributes ─────────────────────────────────────────────────────────────────
 
   attr_reader :lines
@@ -36,7 +37,7 @@ class OVHTelecomControl::Client < OVHApi::Client
 
   # Page: https://api.ovh.com/console/#/telephony/{billingAccount}#GET
   def path
-    Pathname resource % { identifier: account }
+    Pathname format(resource, identifier: account)
   end
 
   def self.resource
@@ -62,10 +63,10 @@ class OVHTelecomControl::Client < OVHApi::Client
       method: method,
       parameters: parameters,
       code: code,
-      message: message['message']
+      message: message['message'],
     }
     if block
-      block.call(message, error)
+      block.(message, error)
     else
       if not error
         message
@@ -98,9 +99,7 @@ class OVHTelecomControl::Client < OVHApi::Client
       # Example: https://api.ovh.com/console/#/telephony/{billingAccount}/easyHunting#GET
       # Response:
       # Array of line identifiers
-      path = self.path + OVHTelecomControl::Line.resource % {
-        type: type
-      }
+      path = self.path + format(OVHTelecomControl::Line.resource, type: type)
       identifiers = get(path)
       lines = identifiers.map do |identifier|
         OVHTelecomControl::Line.new(client: self, identifier: identifier)
@@ -120,13 +119,11 @@ class OVHTelecomControl::Client < OVHApi::Client
     end
   end
 
-  alias :users :get_users
+  alias users get_users
 
   # Exporting ──────────────────────────────────────────────────────────────────
 
-  def to_s
-    identifier.to_s
-  end
+  delegate :to_s, to: :identifier
 
   def to_h
     {
@@ -136,5 +133,4 @@ class OVHTelecomControl::Client < OVHApi::Client
       users: users.map(&:to_h),
     }
   end
-
 end
