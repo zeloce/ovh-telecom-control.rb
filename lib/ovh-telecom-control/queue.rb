@@ -116,6 +116,20 @@ class OVHTelecomControl::Queue
     agents.map(&:to_user)
   end
 
+  # /telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}/liveCalls
+  def get_live_calls
+    path = self.path + 'liveCalls'
+    live_calls = client.get(path)
+    return live_calls
+  end
+
+  # GET /telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}/liveCalls/{id}
+  def get_live_call(id:)
+    path = self.path + "liveCalls/#{id}"
+    live_call = client.get(path)
+    return live_call
+  end
+
   alias users get_users
 
   # Exporting ──────────────────────────────────────────────────────────────────
