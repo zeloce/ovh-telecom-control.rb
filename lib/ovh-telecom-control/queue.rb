@@ -58,9 +58,9 @@ class OVHTelecomControl::Queue
     client.post(path, queueId: queue.identifier, position: position)
   end
 
-  def remove_agent(agent)
+  def remove_agent(agent, queue)
     # Example: https://api.ovh.com/console/#/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}/agent/{agentId}#DELETE
-    path = self.path + 'agent' + String(agent.identifier)
+    path = line.path + 'hunting' + 'agent' + String(agent.identifier) + 'queue' + String(queue.identifier)
     client.delete(path)
   end
 
@@ -105,9 +105,9 @@ class OVHTelecomControl::Queue
     add_agent(agent, queue)
   end
 
-  def remove_user(user)
+  def remove_user(user, queue)
     agent = user.agents.find { |agent| agent.line == line }
-    remove_agent(agent)
+    remove_agent(agent, queue)
   end
 
   def set_user(user, position:)
