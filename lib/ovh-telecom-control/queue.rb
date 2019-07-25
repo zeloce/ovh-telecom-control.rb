@@ -49,10 +49,13 @@ class OVHTelecomControl::Queue
 
   # Agent ──────────────────────────────────────────────────────────────────────
 
-  def add_agent(agent, position: agents.count + 1)
+  def add_agent(agent, queue, position: agents.count + 1)
     # Example: https://api.ovh.com/console/#/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}/agent#POST
-    path = self.path + 'agent'
-    client.post(path, agentId: agent.identifier, position: position)
+    #<Pathname:/telephony/kl40243-ovh-1/ovhPabx/0033535547110/hunting/queue/242913/agent>
+    #/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/queue
+    path = line.path + 'hunting' + 'agent' + String(agent.identifier) + 'queue'
+    Rails.logger.debug(path)
+    client.post(path, queueId: queue.identifier, position: position)
   end
 
   def remove_agent(agent)
@@ -97,9 +100,9 @@ class OVHTelecomControl::Queue
 
   # User ───────────────────────────────────────────────────────────────────────
 
-  def add_user(user, position: agents.count + 1)
+  def add_user(user, queue, position: agents.count + 1)
     agent = user.agents.find { |agent| agent.line == line }
-    add_agent(agent)
+    add_agent(agent, queue)
   end
 
   def remove_user(user)
