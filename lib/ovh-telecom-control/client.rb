@@ -56,12 +56,13 @@ class OVHTelecomControl::Client < OVHApi::Client
   def request(path, method, parameters, &block)
     body = parameters&.to_json
     response = super(path, method, body)
-    message = if response.body == "null"
-                "null"
-              else
-                JSON.parse(response.body) end
     code = response.code.to_i
-    error = code != 200 && {
+    message = if code < 400 && response.body != "null"
+                JSON.parse(response.body)
+              else
+                response.body
+              end
+    error = {
       path: path,
       method: method,
       parameters: parameters,
@@ -71,11 +72,8 @@ class OVHTelecomControl::Client < OVHApi::Client
     if block
       block.(message, error)
     else
-      if not error
-        message
-      else
-        raise String(error)
-      end
+      raise OVHTelecomControl::HttpError.new(**error)  if code >= 400
+      message
     end
   end
 
