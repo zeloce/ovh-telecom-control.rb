@@ -62,17 +62,19 @@ class OVHTelecomControl::Client < OVHApi::Client
               else
                 response.body
               end
-    error = {
-      path: path,
-      method: method,
-      parameters: parameters,
-      code: code,
-      message: message['message'],
-    }
+    error = if code >= 400 
+      {
+        path: path,
+        method: method,
+        parameters: parameters,
+        code: code,
+        message: message['message'],
+      }
+    end
     if block
       block.(message, error)
     else
-      raise OVHTelecomControl::HttpError.new(**error)  if code >= 400
+      raise OVHTelecomControl::HttpError.new(**error) if error.present?
       message
     end
   end
