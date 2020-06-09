@@ -68,7 +68,7 @@ class OVHTelecomControl::Client < OVHApi::Client
         method: method,
         parameters: parameters,
         code: code,
-        message: message['message'],
+        message: message,
       }
     end
     if block
